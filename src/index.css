@@ -1,0 +1,35 @@
+@import "tailwindcss";
+
+/* Custom utility: DotGothic16 font for developer title */
+.font-text-dotgothic16- {
+  font-family: "DotGothic16", sans-serif;
+}
+
+/* Global theming using CSS variables so we can set them inline and avoid UA/extension recolor */
+:root {
+  /* CSS variables default to light theme */
+  --site-bg: #ffffff;
+  --site-fg: #000000;
+  --muted: #6b7280; /* gray-500 */
+  color-scheme: light dark;
+}
+
+/* When javascript or ThemeProvider applies the dark class, variables will be updated inline as well.
+   Keep a fallback rule for html.dark to ensure variables are present for non-JS environments. */
+html.dark {
+  --site-bg: #111827; /* tailwind gray-900 */
+  --site-fg: #f3f4f6; /* tailwind gray-100 */
+  color-scheme: dark;
+}
+
+/* Apply variables to body (avoid !important so Tailwind utilities on components can win) */
+body {
+  background-color: var(--site-bg);
+  color: var(--site-fg);
+}
+
+/* Small helpers */
+.site-bg {
+  background-color: var(--site-bg);
+  color: var(--site-fg);
+}
