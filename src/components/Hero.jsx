@@ -144,7 +144,7 @@ const Hero = () => {
           <div className="flex items-center justify-center gap-2 sm:gap-3 md:gap-4">
             <h1
               ref={containerRef}
-              className="font-text-dotgothic16- leading-[1.1] tracking-tight text-[28px] xs:text-3xl sm:text-4xl lg:text-6xl xl:text-7xl"
+              className="font-text-dotgothic16- leading-[1.1] tracking-tight text-[20px] xs:text-3xl sm:text-4xl lg:text-6xl xl:text-7xl"
             >
               {letters.map((char, i) =>
                 char === " " ? (
