@@ -2,6 +2,8 @@ import React from "react";
 import Hero from "./components/Hero";
 import Projects from "./components/Projects";
 import AboutMe from "./components/AboutMe";
+import ContactMe from "./components/ContactMe";
+import ScrollToTopButton from "./components/ScrollToTopButton";
 
 function App() {
   return (
@@ -9,6 +11,8 @@ function App() {
       <Hero />
       <Projects limit={4} showMoreButton />
       <AboutMe />
+      <ContactMe />
+      <ScrollToTopButton />
     </div>
   );
 }

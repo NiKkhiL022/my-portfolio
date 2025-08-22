@@ -1,4 +1,5 @@
 import React from "react";
+import ScrollToTopButton from "./ScrollToTopButton";
 import { useParams, Link } from "react-router-dom";
 import { projectsData } from "../data/projects";
 
@@ -99,7 +100,7 @@ const ProjectDetail = () => {
             <img
               src={banner || images[0] || imageUrl}
               alt={title}
-              className="w-full max-h-[520px] object-cover rounded-lg"
+              className="w-full max-h-[640px] object-cover rounded-lg"
               onError={(e) => {
                 e.currentTarget.onerror = null;
                 e.currentTarget.src =
@@ -167,7 +168,7 @@ const ProjectDetail = () => {
                     <img
                       src={b.src}
                       alt={b.alt || title}
-                      className="w-full rounded-lg object-contain h-[800px]"
+                      className="w-full rounded-lg object-cover"
                       onError={(e) => {
                         e.currentTarget.onerror = null;
                         e.currentTarget.src =
@@ -221,6 +222,7 @@ const ProjectDetail = () => {
           </div>
         )}
       </div>
+      <ScrollToTopButton />
     </section>
   );
 };

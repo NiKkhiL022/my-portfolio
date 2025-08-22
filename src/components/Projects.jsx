@@ -1,4 +1,5 @@
 import React from "react";
+import ScrollToTopButton from "./ScrollToTopButton";
 import { useNavigate, Link, useLocation } from "react-router-dom";
 import { projectsData } from "../data/projects";
 
@@ -75,7 +76,10 @@ const Projects = ({ limit, showMoreButton = false }) => {
   const isFullPage = location.pathname === "/projects";
 
   return (
-    <section className="font-mono site-bg p-8 md:p-16 transition-colors duration-200">
+    <section
+      id="projects"
+      className="font-mono site-bg p-8 md:p-16 transition-colors duration-200"
+    >
       <div className="max-w-7xl mx-auto">
         {/* Section Title */}
         <div className="flex items-end justify-between mb-12 gap-6">
@@ -110,6 +114,7 @@ const Projects = ({ limit, showMoreButton = false }) => {
           </div>
         )}
       </div>
+      <ScrollToTopButton />
     </section>
   );
 };
