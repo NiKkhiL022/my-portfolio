@@ -1,4 +1,5 @@
 import resumePdf from "../assets/files/gattadi-nikhil-resume.pdf";
+import { Link } from "react-router-dom";
 
 const resumeData = {
   name: "GATTADI NIKHIL",
@@ -42,8 +43,9 @@ const resumeData = {
     },
   ],
   education: [
-    "Bachelor of Technology (B.Tech), Mechanical Engineering | 2021 Hindustan Institute of Technology and Science (HITS)",
+    "Bachelor of Technology (B.Tech), Mechanical Engineering | 2021 Holy Mary Institute of Technology and Science (HITS)",
     "Diploma in Mechanical Engineering | 2018 Aurora’s Polytechnic Academy",
+    "SSC | 2014 Little Flower High School",
   ],
 };
 
@@ -56,15 +58,23 @@ const Resume = () => {
 
   return (
     <div className="min-h-screen site-bg transition-colors duration-200 max-w-4xl mx-auto py-10 px-6 md:px-10 font-mono">
+      {/* Back to Home */}
+      <Link
+        to="/"
+        aria-label="Back to home"
+        className="font-bold text-base md:text-[20px] tracking-wider border-b-2 border-[color:var(--site-fg)] hover:border-[color:var(--site-fg)]/60 mb-8 md:mb-12 inline-block focus:outline-none focus:ring-2 focus:ring-[color:var(--site-fg)]/40 focus:ring-offset-2 focus:ring-offset-[color:var(--site-bg)] transition-colors"
+      >
+        ← back
+      </Link>
       <div className="flex items-start justify-between gap-4 flex-wrap">
         <div>
           <h1 className="text-3xl md:text-4xl font-bold tracking-tight">
             {resumeData.name}
           </h1>
-          <p className="mt-1 text-sm md:text-base font-semibold">
+          <p className="mt-1 text-base md:text-[20px] font-semibold">
             {resumeData.title}
           </p>
-          <p className="mt-1 text-xs md:text-sm text-gray-500 dark:text-gray-400 whitespace-pre-line">
+          <p className="mt-1 text-sm md:text-base text-gray-500 dark:text-gray-400 whitespace-pre-line">
             {resumeData.contact}
           </p>
           {/* Removed inline download button to prevent overlap with floating button */}
@@ -72,22 +82,22 @@ const Resume = () => {
       </div>
 
       <section className={sectionClass}>
-        <h2 className="text-xs md:text-sm font-bold tracking-[0.25em] uppercase">
+        <h2 className="text-base md:text-[20px] font-bold tracking-[0.25em] uppercase">
           PROFESSIONAL SUMMARY
         </h2>
-        <p className="mt-4 text-sm leading-relaxed text-[var(--site-fg)]/80">
+        <p className="mt-4 text-sm md:text-base leading-relaxed text-[var(--site-fg)]/80">
           {resumeData.summary}
         </p>
       </section>
 
       <section className={sectionClass}>
-        <h2 className="text-xs md:text-sm font-bold tracking-[0.25em] uppercase">
+        <h2 className="text-base md:text-[20px] font-bold tracking-[0.25em] uppercase">
           TECHNICAL SKILLS
         </h2>
         <div className="mt-6 grid grid-cols-1 sm:grid-cols-2 gap-6 text-sm">
           {Object.entries(resumeData.skills).map(([k, v]) => (
             <div key={k} className="flex flex-col gap-1">
-              <h3 className="text-xs font-semibold tracking-wider uppercase text-[var(--site-fg)]/90">
+              <h3 className="text-[14px] md:text-[16px] font-semibold tracking-wider uppercase text-[var(--site-fg)]/90">
                 {k.replace(/&/g, " & ")}
               </h3>
               <p className="text-[var(--site-fg)]/70 leading-relaxed">{v}</p>
@@ -97,7 +107,7 @@ const Resume = () => {
       </section>
 
       <section className={sectionClass}>
-        <h2 className="text-xs md:text-sm font-bold tracking-[0.25em] uppercase">
+        <h2 className="text-base md:text-[20px] font-bold tracking-[0.25em] uppercase">
           WORK EXPERIENCE
         </h2>
         {resumeData.experience.map((exp) => {
@@ -128,12 +138,12 @@ const Resume = () => {
                 {groups.map((g, idx) => (
                   <div key={idx} className="group">
                     {g.heading && (
-                      <h4 className="text-[10px] md:text-xs font-semibold tracking-wider uppercase text-[var(--site-fg)]/80 mb-2 border-l-2 border-[var(--site-fg)]/30 pl-2">
+                      <h4 className="text-base md:text-[18px] font-semibold tracking-wider uppercase text-[var(--site-fg)]/80 mb-2 border-l-2 border-[var(--site-fg)]/30 pl-2">
                         {g.heading}
                       </h4>
                     )}
                     {g.items.length > 0 && (
-                      <ul className="list-disc list-outside pl-5 space-y-1 text-sm leading-relaxed marker:text-[var(--site-fg)]/50">
+                      <ul className="list-disc list-outside pl-5 space-y-1 text-sm md:text-base leading-relaxed marker:text-[var(--site-fg)]/50">
                         {g.items.map((item, i) => (
                           <li key={i} className="text-[var(--site-fg)]/80">
                             {item}
@@ -150,14 +160,14 @@ const Resume = () => {
       </section>
 
       <section className={sectionClass}>
-        <h2 className="text-xs md:text-sm font-bold tracking-[0.25em] uppercase">
+        <h2 className="text-base md:text-[20px] font-bold tracking-[0.25em] uppercase">
           EDUCATION
         </h2>
         <div className="mt-6 space-y-4">
           {resumeData.education.map((ed) => (
             <p
               key={ed}
-              className="text-sm leading-relaxed text-[var(--site-fg)]/80 border-l-2 border-[var(--site-fg)]/20 pl-3"
+              className="text-sm md:text-base leading-relaxed text-[var(--site-fg)]/80 border-l-2 border-[var(--site-fg)]/20 pl-3"
             >
               {ed}
             </p>

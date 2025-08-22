@@ -66,14 +66,34 @@ const ProjectDetail = () => {
       <div className="max-w-6xl mx-auto">
         {/* Header */}
         <div className="mb-8 md:mb-12">
+          <Link
+            to="/projects"
+            onClick={() => {
+              try {
+                // Ensure slug anchor restoration even if user came from home
+                if (project) {
+                  const slugFromLink = project.link
+                    ? project.link.split("/").filter(Boolean).pop()
+                    : (project.title || "")
+                        .toLowerCase()
+                        .replace(/[^a-z0-9]+/g, "-")
+                        .replace(/(^-|-$)/g, "");
+                  if (slugFromLink) {
+                    sessionStorage.setItem("projectsTargetSlug", slugFromLink);
+                  }
+                  // Avoid a stale scroll position overriding slug
+                  sessionStorage.removeItem("projectsScroll");
+                }
+              } catch {
+                /* ignore */
+              }
+            }}
+            className="font-bold text-base md:text-[20px] tracking-wider border-b-2 border-[color:var(--site-fg)] hover:border-[color:var(--site-fg)]/60 mb-8 md:mb-12 inline-block"
+          >
+            ← back
+          </Link>
           <div className="flex items-baseline justify-between gap-4 flex-wrap">
             <h1 className="text-2xl md:text-4xl font-bold">{title}</h1>
-            <Link
-              to="/projects"
-              className="font-bold text-xs md:text-sm tracking-wider border-b-2 border-[color:var(--site-fg)] hover:border-[color:var(--site-fg)]/60"
-            >
-              ← back
-            </Link>
           </div>
           {subtitle && (
             <p className="text-sm md:text-base text-[color:var(--site-fg)]/70 mt-2">

@@ -1,4 +1,5 @@
 import React from "react";
+import myImage from "../assets/images/my-image.jpeg"; // Ensure bundler processes the image for production
 
 // --- SVG Icons ---
 // Using inline SVGs for the icons to avoid external dependencies.
@@ -153,12 +154,15 @@ const AboutMe = () => {
         <div className="flex flex-col md:flex-row items-center gap-8 md:gap-12 mb-12 md:mb-16">
           <div className="flex-shrink-0">
             <img
-              src="src/assets/images/my-image.jpeg"
+              src={myImage}
               alt="Gattadi Nikhil Avatar"
+              loading="lazy"
+              width={192}
+              height={192}
               className="w-36 h-36 sm:w-44 sm:h-44 md:w-48 md:h-48 rounded-full bg-[color:var(--site-fg)]/10 object-cover border-4 border-[var(--site-bg)] shadow-md"
               onError={(e) => {
-                e.target.onerror = null;
-                e.target.src =
+                e.currentTarget.onerror = null;
+                e.currentTarget.src =
                   "https://placehold.co/192x192/cccccc/FFFFFF?text=N&font=monospace";
               }}
             />

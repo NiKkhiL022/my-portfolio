@@ -7,13 +7,14 @@ import Projects from "./components/Projects";
 import ProjectDetail from "./components/ProjectDetail";
 import Resume from "./components/Resume";
 import { ThemeProvider } from "./contexts/ThemeContext";
-import ScrollToTopOnRouteChange from "./components/ScrollToTopOnRouteChange";
+// Replaced always-scroll-to-top behavior with smarter restoration
+import ScrollRestoration from "./components/ScrollRestoration";
 
 createRoot(document.getElementById("root")).render(
   <StrictMode>
     <ThemeProvider>
       <BrowserRouter>
-        <ScrollToTopOnRouteChange behavior="auto" />
+        <ScrollRestoration />
         <Routes>
           <Route path="/" element={<App />} />
           <Route path="/projects" element={<Projects />} />

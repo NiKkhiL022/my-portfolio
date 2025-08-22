@@ -97,7 +97,9 @@ const Hero = () => {
             Gattadi Nikhil
           </div>
           <div className="text-right">
-            <p className="font-semibold text-sm">Front-End Developer</p>
+            <p className="font-semibold text-sm md:text-[18px]">
+              Front-End Developer
+            </p>
             <p className="text-xs text-gray-500">Hyderabad, IN</p>
           </div>
         </div>
@@ -152,14 +154,16 @@ const Hero = () => {
       </main>
 
       {/* Mobile Footer Navigation (visible only on small screens) */}
-      <footer className="w-full p-3 sm:p-4 md:hidden">
-        <div className="text-[10px] xs:text-xs">
-          <Nav
-            orientation="horizontal"
-            activeKey={activeLink}
-            setActiveKey={setActiveLink}
-          />
-        </div>
+      <footer
+        className="w-full p-3 sm:p-4 fixed bottom-0 left-0 right-0 md:hidden z-50
+        bg-[var(--site-bg)]/90 backdrop-blur-md border-t border-[var(--site-fg)]/15
+        shadow-[0_-2px_6px_-1px_rgba(0,0,0,0.08)]"
+      >
+        <Nav
+          orientation="horizontal"
+          activeKey={activeLink}
+          setActiveKey={setActiveLink}
+        />
       </footer>
     </div>
   );
