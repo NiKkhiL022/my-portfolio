@@ -4,7 +4,6 @@ import { useLocation, useNavigate } from "react-router-dom";
 // navItems config
 // type: 'section' for in-page scroll, 'route' for routed pages
 const NAV_ITEMS = [
-  { key: "home", label: "Home", type: "section", target: "root-top" },
   { key: "projects", label: "Projects", type: "section", target: "projects" },
   { key: "about", label: "About me", type: "section", target: "about-me" },
   { key: "contact", label: "Contact", type: "section", target: "contact" },
@@ -61,7 +60,7 @@ export function Nav({
               <div key={item.key} className="flex items-center gap-2">
                 <button
                   onClick={() => handleClick(item)}
-                  className={`text-left ${base} transition-colors text-[10px] sm:text-sm`}
+                  className={`text-left ${base} transition-colors text-[14px] md:text-[18px]`}
                 >
                   {item.label}
                 </button>
@@ -72,7 +71,7 @@ export function Nav({
             <button
               key={item.key}
               onClick={() => handleClick(item)}
-              className={`${base} transition-colors text-[10px] sm:text-sm`}
+              className={`${base} transition-colors text-[14px] md:text-[18px]`}
             >
               {item.label}
             </button>

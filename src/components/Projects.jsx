@@ -1,12 +1,30 @@
-import React from "react";
+import React, { useEffect } from "react";
 import ScrollToTopButton from "./ScrollToTopButton";
 import { useNavigate, Link, useLocation } from "react-router-dom";
 import { projectsData } from "../data/projects";
 
+// Helper to derive a stable slug (mirrors logic used for detail routing)
+const deriveSlug = (p) => {
+  if (p.link) {
+    const seg = p.link.split("/").filter(Boolean).pop();
+    if (seg) return seg;
+  }
+  return (p.title || "")
+    .toLowerCase()
+    .replace(/[^a-z0-9]+/g, "-")
+    .replace(/(^-|-$)/g, "");
+};
+
 // Reusable component for each project card
-export const ProjectCard = ({ project }) => {
+export const ProjectCard = ({ project, isFullPage }) => {
+  const slug = deriveSlug(project);
   return (
-    <div className="flex flex-col md:flex-row gap-8 group border border-[color:var(--site-fg)]/10 hover:border-[color:var(--site-fg)]/20 transition-colors duration-200 p-4">
+    <div
+      id={`project-${slug}`}
+      data-project-slug={slug}
+      className="flex flex-col md:flex-row gap-8 group border border-[color:var(--site-fg)]/10 hover:border-[color:var(--site-fg)]/20 transition-colors duration-200 p-4 focus:outline-none"
+      tabIndex={-1}
+    >
       {/* Image Section */}
       <div className="w-full md:w-1/2 p-6 flex flex-col justify-between bg-[color:var(--site-bg)]/95 rounded-lg transition-all duration-200 group-hover:bg-[color:var(--site-bg)]">
         <img
@@ -50,6 +68,25 @@ export const ProjectCard = ({ project }) => {
           <Link
             to={project.link}
             className="font-bold text-sm tracking-wider self-start border-b-2 border-[color:var(--site-fg)] hover:border-[color:var(--site-fg)]/60 transition-colors duration-200"
+            onClick={() => {
+              try {
+                if (isFullPage) {
+                  // Only persist scroll value when already on /projects page
+                  sessionStorage.setItem(
+                    "projectsScroll",
+                    String(
+                      window.scrollY || document.documentElement.scrollTop || 0
+                    )
+                  );
+                } else {
+                  // Coming from limited list: anchor by slug instead
+                  sessionStorage.removeItem("projectsScroll");
+                  sessionStorage.setItem("projectsTargetSlug", slug);
+                }
+              } catch {
+                /* ignore */
+              }
+            }}
           >
             More details →
           </Link>
@@ -75,6 +112,79 @@ const Projects = ({ limit, showMoreButton = false }) => {
   const location = useLocation();
   const isFullPage = location.pathname === "/projects";
 
+  // Restore scroll or specific project anchor when coming back from details.
+  useEffect(() => {
+    if (!isFullPage) return; // only act on full list page
+
+    let storedScroll = null;
+    let targetSlug = null;
+    try {
+      storedScroll = sessionStorage.getItem("projectsScroll");
+      targetSlug = sessionStorage.getItem("projectsTargetSlug");
+    } catch {
+      /* ignore */
+    }
+
+    const attemptScrollToNumber = (num) => {
+      let attempts = 0;
+      const maxAttempts = 18; // a bit longer for slower image layout
+      const restore = () => {
+        window.scrollTo(0, num);
+        attempts++;
+        if (
+          attempts < maxAttempts &&
+          Math.abs((window.scrollY || 0) - num) > 2
+        ) {
+          requestAnimationFrame(restore);
+        } else {
+          try {
+            sessionStorage.removeItem("projectsScroll");
+          } catch {
+            /* ignore */
+          }
+        }
+      };
+      requestAnimationFrame(restore);
+    };
+
+    const attemptScrollToSlug = (slug) => {
+      if (!slug) return false;
+      const el = document.getElementById(`project-${slug}`);
+      if (!el) return false;
+      let attempts = 0;
+      const maxAttempts = 24; // allow more frames for images to size
+      const desiredOffset = () =>
+        el.getBoundingClientRect().top + window.scrollY - 80; // offset for header spacing
+      const scroll = () => {
+        window.scrollTo(0, desiredOffset());
+        attempts++;
+        if (attempts < maxAttempts) {
+          requestAnimationFrame(scroll);
+        } else {
+          try {
+            sessionStorage.removeItem("projectsTargetSlug");
+          } catch {
+            /* ignore */
+          }
+          el.focus({ preventScroll: true });
+        }
+      };
+      requestAnimationFrame(scroll);
+      return true;
+    };
+
+    // Priority: anchored slug (coming from home limited list) over raw scroll value ALWAYS.
+    if (targetSlug) {
+      const ok = attemptScrollToSlug(targetSlug);
+      if (ok) return; // if successful no need to try numeric
+    }
+
+    if (storedScroll) {
+      const num = parseInt(storedScroll, 10);
+      if (!isNaN(num)) attemptScrollToNumber(num);
+    }
+  }, [isFullPage]);
+
   return (
     <section
       id="projects"
@@ -86,7 +196,7 @@ const Projects = ({ limit, showMoreButton = false }) => {
           {isFullPage ? (
             <Link
               to="/"
-              className="font-bold text-xs md:text-sm tracking-wider border-b-2 border-[color:var(--site-fg)] hover:border-[color:var(--site-fg)]/60"
+              className="font-bold text-base md:text-[20px] tracking-wider border-b-2 border-[color:var(--site-fg)] hover:border-[color:var(--site-fg)]/60"
               aria-label="Back to home"
             >
               ← home
@@ -103,7 +213,11 @@ const Projects = ({ limit, showMoreButton = false }) => {
         {/* Projects Grid */}
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-x-16 gap-y-20 mb-16">
           {items.map((project, index) => (
-            <ProjectCard key={index} project={project} />
+            <ProjectCard
+              key={index}
+              project={project}
+              isFullPage={isFullPage}
+            />
           ))}
         </div>
 
@@ -127,7 +241,7 @@ function ShowMoreButton() {
   return (
     <button
       onClick={() => navigate("/projects")}
-      className="font-bold text-sm tracking-wider border-b-2 border-[color:var(--site-fg)] hover:border-[color:var(--site-fg)]/60 inline-block transition-colors duration-200"
+      className="font-bold text-base md:text-[20px] tracking-wider border-b-2 border-[color:var(--site-fg)] hover:border-[color:var(--site-fg)]/60 inline-block transition-colors duration-200"
       aria-label="Show more projects"
     >
       show more projects →
