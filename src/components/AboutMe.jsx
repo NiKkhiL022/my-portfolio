@@ -153,7 +153,7 @@ const AboutMe = () => {
         <div className="flex flex-col md:flex-row items-center gap-8 md:gap-12 mb-12 md:mb-16">
           <div className="flex-shrink-0">
             <img
-              src="https://i.imgur.com/IlQ66c8.png"
+              src="src/assets/images/my-image.jpeg"
               alt="Gattadi Nikhil Avatar"
               className="w-36 h-36 sm:w-44 sm:h-44 md:w-48 md:h-48 rounded-full bg-[color:var(--site-fg)]/10 object-cover border-4 border-[var(--site-bg)] shadow-md"
               onError={(e) => {
