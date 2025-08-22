@@ -1,9 +1,4 @@
-import React from "react";
-import ScrollToTopButton from "./ScrollToTopButton";
 import resumePdf from "../assets/files/gattadi-nikhil-resume.pdf";
-
-// NOTE: you must install jsPDF if not already installed.
-// We'll attempt dynamic import fallback if bundler tree-shakes unused.
 
 const resumeData = {
   name: "GATTADI NIKHIL",
@@ -186,7 +181,6 @@ const Resume = () => {
           <path d="M5 18h14v2H5z" />
         </svg>
       </a>
-      {/* <ScrollToTopButton /> */}
     </div>
   );
 };
