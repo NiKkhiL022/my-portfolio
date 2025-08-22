@@ -1,4 +1,6 @@
 import React, { useEffect, useMemo, useRef, useState, useContext } from "react";
+import { Link } from "react-router-dom";
+import Nav from "./Nav";
 import gsap from "gsap";
 import { ThemeContext } from "../contexts/ThemeContext";
 
@@ -30,7 +32,7 @@ const Hero = () => {
   const { theme, toggleTheme } = useContext(ThemeContext);
   const isDark = theme === "dark"; // still used for toggle label
 
-  const navItems = ["home", "cases", "projects", "about me", "contact"];
+  // Active link state is reused for highlighting in Nav
 
   // Split title into individual letters for the animation
   const letters = useMemo(() => developerTitle.split(""), [developerTitle]);
@@ -126,16 +128,12 @@ const Hero = () => {
       <main className="flex-grow flex items-center justify-center relative px-4 sm:px-6 md:px-16 lg:px-24 xl:px-32">
         {/* Left Side Navigation */}
         <aside className="absolute left-0 inset-y-0 hidden md:flex flex-col justify-center items-center px-2 sm:px-4 lg:px-6 pointer-events-none">
-          <div className="flex flex-col items-start justify-center space-y-10 lg:space-y-16 xl:space-y-20 pointer-events-auto">
-            {navItems.map((item) => (
-              <VerticalText
-                key={item}
-                isActive={activeLink === item}
-                onClick={() => setActiveLink(item)}
-              >
-                {item}
-              </VerticalText>
-            ))}
+          <div className="pointer-events-auto">
+            <Nav
+              orientation="vertical"
+              activeKey={activeLink}
+              setActiveKey={setActiveLink}
+            />
           </div>
         </aside>
 
@@ -182,24 +180,12 @@ const Hero = () => {
 
       {/* Mobile Footer Navigation (visible only on small screens) */}
       <footer className="w-full p-3 sm:p-4 md:hidden">
-        <div className="flex justify-around items-center text-[10px] xs:text-xs uppercase text-gray-500 font-semibold">
-          {navItems.map((item) => (
-            <a
-              key={item}
-              href={`#${item.replace(/\s/g, "-")}`}
-              onClick={(e) => {
-                e.preventDefault();
-                setActiveLink(item);
-              }}
-              className={`transition-colors duration-300 ${
-                activeLink === item
-                  ? "text-[var(--site-fg)]"
-                  : "text-gray-500 hover:text-[var(--site-fg)]"
-              }`}
-            >
-              {item}
-            </a>
-          ))}
+        <div className="text-[10px] xs:text-xs">
+          <Nav
+            orientation="horizontal"
+            activeKey={activeLink}
+            setActiveKey={setActiveLink}
+          />
         </div>
       </footer>
     </div>

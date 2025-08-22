@@ -98,39 +98,46 @@ const ExperienceList = ({ title, items }) => (
 
 // --- Main AboutMe Component ---
 const AboutMe = () => {
-  // Data based on your resume
+  // Updated summary based on all your projects
   const professionalSummary =
-    "A results-driven Front-End Developer with over 3 years of experience specializing in crafting responsive, high-performance web applications. Proficient in TypeScript and modern JavaScript frameworks like Svelte and React. Adept at leveraging generative AI tools and strategic prompt engineering to accelerate development cycles, from code generation to debugging, while ensuring rigorous testing and verification for high-quality outputs.";
+    "A highly skilled Front-End Developer with 3+ years of experience architecting and building sophisticated, high-performance web applications. My expertise lies in creating scalable solutions with Svelte/SvelteKit and TypeScript, demonstrated by my work on a multi-client monorepo SDK and a comprehensive design system (Apex). I have a proven track record of leading complex projects, including full CMS migrations, developing intricate GSAP animations, and building robust, component-driven UIs for enterprise-level admin panels. A collaborative developer dedicated to transforming complex requirements into elegant, maintainable, and impactful digital experiences.";
 
+  // Re-categorized skills based on all your projects
   const experiences = {
+    // Core Technologies
+    years: [
+      "Svelte / SvelteKit",
+      "TypeScript",
+      "JavaScript (ES6+)",
+      "React & React Native",
+      "GSAP (Animation)",
+      "HTML5 & SCSS/CSS3",
+    ],
+    // Tools & Platforms
     had: [
       "Git, GitHub",
       "Figma",
-      "Unreal Engine (Blueprints)",
-      "11ty (Eleventy)",
-      "GSAP",
-      "RESTful API Integration",
+      "Storybook",
+      "Headless CMS (Apex)",
+      "FFmpeg",
+      "Eleventy (11ty)",
     ],
-    years: [
-      "TypeScript",
-      "JavaScript (ES6+)",
-      "Svelte / SvelteKit",
-      "React",
-      "Tailwind CSS",
-      "Component-Based Architecture",
-    ],
+    // Concepts & Architectures
     study: [
+      "Design Systems",
+      "Component-Driven Architecture",
+      "Monorepo & SDK Development",
+      "Responsive Web & Email Design",
+      "API Integration (RESTful)",
       "Performance Optimization",
-      "Responsive Web Design",
-      "Cross-Browser Compatibility",
-      "Prompt Engineering",
-      "Workflow Automation",
-      "Generative AI Tools",
     ],
   };
 
   return (
-    <section className="font-mono site-bg text-[var(--site-fg)] px-6 py-10 md:px-12 md:py-16 transition-colors duration-200">
+    <section
+      id="about-me"
+      className="font-mono site-bg text-[var(--site-fg)] px-6 py-10 md:px-12 md:py-16 transition-colors duration-200"
+    >
       <div className="max-w-7xl mx-auto">
         {/* Section Title */}
         <div className="mb-10 md:mb-12">
@@ -160,7 +167,7 @@ const AboutMe = () => {
             <h3 className="text-2xl md:text-3xl font-bold text-[color:var(--site-fg)]">
               Gattadi Nikhil
             </h3>
-            <p className="text-sm text-left text-[color:var(--site-fg)]/80 my-4 max-w-2xl">
+            <p className="text-sm text-left text-[color:var(--site-fg)]/80 my-4 max-w-full">
               {professionalSummary}
             </p>
             <div className="flex flex-wrap justify-center md:justify-start gap-4 sm:gap-6 text-xs font-semibold tracking-widest uppercase">
@@ -179,32 +186,26 @@ const AboutMe = () => {
 
         {/* Skills Overview Grid */}
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 mb-12 md:mb-16">
-          <SkillCard icon={<InterfaceIcon />} title="UI/UX & Design">
-            Briefing, wireframe, UI, UX understanding.
+          <SkillCard icon={<InterfaceIcon />} title="Component Architecture">
+            Building scalable, reusable UI systems.
           </SkillCard>
-          <SkillCard icon={<HtmlCssIcon />} title="HTML & CSS">
-            Responsive websites with fast loading.
+          <SkillCard icon={<HtmlCssIcon />} title="Web & Email Development">
+            Responsive websites & robust HTML emails.
           </SkillCard>
-          <SkillCard icon={<ReactIcon />} title="Svelte & React.js">
-            Build your system with modern frameworks.
+          <SkillCard icon={<ReactIcon />} title="Advanced Animation">
+            Creating cinematic experiences with GSAP.
           </SkillCard>
-          <SkillCard icon={<AiIcon />} title="Generative AI">
-            Accelerate development with AI tools.
+          <SkillCard icon={<AiIcon />} title="Modern Frameworks">
+            Expertise in SvelteKit, React & React Native.
           </SkillCard>
         </div>
 
         {/* Experience Details Grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          <ExperienceList title="Core Technologies" items={experiences.years} />
+          <ExperienceList title="Tools & Platforms" items={experiences.had} />
           <ExperienceList
-            title="I've had experiences with"
-            items={experiences.had}
-          />
-          <ExperienceList
-            title="I have years of experience with"
-            items={experiences.years}
-          />
-          <ExperienceList
-            title="I work and study about"
+            title="Concepts & Architectures"
             items={experiences.study}
           />
         </div>
