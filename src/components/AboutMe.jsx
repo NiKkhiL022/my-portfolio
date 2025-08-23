@@ -174,7 +174,7 @@ const AboutMe = () => {
             <p className="text-sm text-left text-[color:var(--site-fg)]/80 my-4 max-w-full">
               {professionalSummary}
             </p>
-            <div className="flex flex-wrap justify-center md:justify-start gap-4 sm:gap-6 text-xs font-semibold tracking-widest uppercase">
+            {/* <div className="flex flex-wrap justify-center md:justify-start gap-4 sm:gap-6 text-xs font-semibold tracking-widest uppercase">
               <a href="#" className="hover:text-[var(--site-fg)]">
                 LinkedIn
               </a>
@@ -184,7 +184,7 @@ const AboutMe = () => {
               <a href="#" className="hover:text-[var(--site-fg)]">
                 Email
               </a>
-            </div>
+            </div> */}
           </div>
         </div>
 

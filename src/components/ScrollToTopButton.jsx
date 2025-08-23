@@ -24,7 +24,7 @@ export default function ScrollToTopButton({ threshold = 200 }) {
       type="button"
       aria-label="Scroll to top"
       onClick={handleClick}
-      className={`fixed z-50 bottom-16 right-4 md:bottom-8 md:right-8 w-10 h-10 md:w-12 md:h-12 rounded-full flex items-center justify-center border border-[var(--site-fg)]/30 bg-[var(--site-bg)]/80 backdrop-blur-sm text-[var(--site-fg)] shadow-lg shadow-black/10 hover:shadow-black/30 transition-all group ${
+      className={`fixed z-50 bottom-18 right-4 md:bottom-8 md:right-8 w-10 h-10 md:w-12 md:h-12 rounded-full flex items-center justify-center border border-[var(--site-fg)]/30 bg-[var(--site-bg)]/80 backdrop-blur-sm text-[var(--site-fg)] shadow-lg shadow-black/10 hover:shadow-black/30 transition-all group ${
         visible
           ? "opacity-100 translate-y-0 pointer-events-auto"
           : "opacity-0 translate-y-4 pointer-events-none"
